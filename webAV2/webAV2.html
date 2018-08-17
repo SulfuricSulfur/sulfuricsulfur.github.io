@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="webfont/style.css" rel="stylesheet" />
+	<title>Web Audio Visualizer</title>
+    
+  
+	<script>
+        
+        
+        
+	// An IIFE ("Iffy") - see the notes in mycourses
+	(function(){
+	//https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
+		"use strict";
+		maxRadius=180;
+		var NUM_SAMPLES = 256;
+        //loading in the songs
+		var SOUND_1 = 'media/Gorillaz - Doncamatic.mp3';
+		var SOUND_2 = 'media/Hotline Miami-Crystals.mp3';
+		var SOUND_3 = 'media/MACINTOSH PLUS.mp3';
+        var SOUND_4 = 'media/JoJos Bizarre Adventure- Great Days.mp3';
+        var SOUND_5= 'media/Caravan Palace-Lone Digger.mp3';
+        var SOUND_6= 'media/Electro-Delight.mp3';
+        var SOUND_7='media/WAKE ME UP INSIDE.mp3';
+         var SOUND_8='media/C2C - Delta.mp3';
+         var SOUND_9='media/SAINT PEPSI - ENJOY YOURSELF.mp3';
+         var SOUND_10= 'media/Fist of the North Star OST [HQ] - Heart of Madness.mp3';
+        
+		var audioElement;
+		var analyserNode;
+        var shiftNode;
+		var canvas,ctx, maxRadius;
+        //bools for checkbox
+        var invert=false, nightTime=false, noise=false, vape = false, quad = false, rainFall;
+        
+        var framCounter=0;
+
+        
+        //values for night and day
+        //-----------DAY TIME VALUES---------------
+        var floorDay='#554e9e';//color of the floor
+        var mountainLine='#de22ea';//color for lines on mountain
+        var mountainBase='#8e39a3';//color for lines of the mountain
+        var baseLine='#6bf4e7';//color for the lines on the floor
+        //the RGB for the sun
+        var sunR=255;
+        var sunG=242;
+        var sunB=143;
+        //the gradiant for the sun
+        var sky1='#ff3b79';
+        var sky2='#ff8808';
+        var sky3='#fee93f';
+        //-----------NIGHT TIME VALUES---------------
+        var floorNight='#331158';
+        var mountainLineN='#fe2a81';
+        var mountainBaseN='#311d3c';
+        var baseLineN='#11ffff';
+        //gradiant for the sky
+        var skyN1='#181713';
+        var skyN2='#020447';
+        var skyN3='#081aeb';
+        //RGB Values of the moon
+        var moonR=214;
+        var moonG=233;
+        var moonB=252;
+        
+        
+        //the x and y locations for the stars
+                //Defaults
+        var DEFAULT_STAR_COlOR ="(223,228,250)";
+        //the X and Y coordinates for the stars
+        var starX=[];
+        var starY=[];
+        //the colors that I am passing in for the stars
+        var starColor = [];
+        var starR=[];
+        var starG=[];
+        var starB=[];
+        var starSize =[];//size of the stars
+        var starCount = 0;//the number of stars
+        var starFill=DEFAULT_STAR_COlOR;
+		
+		
+		var gainBlast;//the value for the gain
+		var distortionN;//the distortion node
+        //the amount of distortion
+        var distortionValue =1;
+        
+        
+        var image = new Image();//the roman statue image
+              //values below are for the moving roman statue
+        var ySpeed;
+        var yPos;//the starting y position
+        
+
+		
+		function init(){
+			// set up canvas stuff
+			canvas = document.querySelector('canvas');
+			ctx = canvas.getContext("2d");
+
+            
+            
+            gainBlast=1;
+            image.src="media/roman-statue.png";
+            yPos=canvas.height/2-200;//starting position
+            ySpeed=.5;//starting speed at 0
+        
+            //adding clouds to the array
+            
+            
+			
+			// get reference to <audio> element on page
+			audioElement = document.querySelector('audio');
+			canvas.addEventListener("click",onClick);
+			// call our helper function and get an analyser node
+			createWebAudioContextWithAnalyserNode(audioElement);
+			// get sound track <select> and Full Screen button working
+			setupUI();
+			//bassFilter.frequency.value=1000;
+			// load and play default sound into audio element
+			playStream(audioElement,SOUND_5);
+			 
+			// start animation loop
+			update();
+		}
+		
+		
+		function createWebAudioContextWithAnalyserNode(audioElement) {
+			var audioCtx, sourceNode;
+			// create new AudioContext
+			// The || is because WebAudio has not been standardized across browsers yet
+			// http://webaudio.github.io/web-audio-api/#the-audiocontext-interface
+			audioCtx = new (window.AudioContext || window.webkitAudioContext);
+			
+			// creating the nodes
+			analyserNode = audioCtx.createAnalyser();
+			
+            shiftNode=audioCtx.createGain();
+            
+            distortionN=audioCtx.createWaveShaper();
+			/*
+			We will request NUM_SAMPLES number of samples or "bins" spaced equally 
+			across the sound spectrum.
+			
+			If NUM_SAMPLES (fftSize) is 256, then the first bin is 0 Hz, the second is 172 Hz, 
+			the third is 344Hz. Each bin contains a number between 0-255 representing 
+			the amplitude of that frequency.
+			*/ 
+			
+			// fft stands for Fast Fourier Transform
+			analyserNode.fftSize = NUM_SAMPLES;
+			//hooking up the nodes
+			// this is where we hook up the <audio> element to the nodes
+			sourceNode = audioCtx.createMediaElementSource(audioElement); 
+			//sourceNode.connect(analyserNode);
+            sourceNode.connect(shiftNode);
+            
+            shiftNode.connect(distortionN);
+            distortionN.connect(analyserNode)
+            
+            
+			
+			// here we connect to the destination i.e. speakers
+			analyserNode.connect(audioCtx.destination);
+			return analyserNode;
+		}
+		
+		function setupUI(){
+			document.querySelector("#trackSelect").onchange = function(e){
+				playStream(audioElement,e.target.value);
+			};
+            
+            document.querySelector("#colorStar").onchange=function(e){
+                starFill= e.target.value;
+            }
+			
+			document.querySelector("#fsButton").onclick = function(){
+				requestFullscreen(canvas);
+			};
+            
+        document.querySelector("#slider1").onchange = function(e){
+			 	//console.log("checked=" + e.target.value);
+			 	 maxRadius = e.target.value;
+			 };
+            //gain
+             document.querySelector("#slider2").onchange = function(e){
+			 	//console.log("checked=" + e.target.value);
+			 	 gainBlast = e.target.value;
+			 };
+            //distortion
+             document.querySelector("#slider3").onchange = function(e){
+			 	//console.log("checked=" + e.target.value);
+			 	 distortionValue = e.target.value;
+			 };
+            //speed of the roman statue
+                document.querySelector("#slider4").onchange = function(e){
+			 	//console.log("checked=" + e.target.value);
+                ySpeed= ySpeed/Math.abs(ySpeed);
+                    ySpeed *= e.target.value;
+			 };
+
+            //night and day
+            document.getElementById('nightTime').onchange=function(e){
+                nightTime= e.target.checked;
+                
+            }
+ 
+            //inverstion
+            document.getElementById('invertColor').onchange=function(e){
+                invert= e.target.checked;
+                
+            }
+            //noise
+            document.getElementById('noiseBox').onchange=function(e){
+               noise= e.target.checked;
+                
+            }
+            //changing mountains to quadratic
+            document.getElementById('quadBox').onchange=function(e){
+               quad= e.target.checked;
+                
+            }
+            
+            //GETTING A E S T H E T I C
+                document.getElementById('vapeBox').onchange=function(e){
+               vape= e.target.checked;
+                
+            }
+
+		}
+		
+		function playStream(audioElement,path){
+			audioElement.src = path;
+			audioElement.play();
+			audioElement.volume = 0.2;
+			document.querySelector('#status').innerHTML = "Now playing: " + path;
+		}
+		
+		function update() { 
+			// this schedules a call to the update() method in 1/60 seconds
+			requestAnimationFrame(update);
+            framCounter++;
+			shiftNode.gain.value=gainBlast;
+			/*
+				Nyquist Theorem
+				http://whatis.techtarget.com/definition/Nyquist-Theorem
+				The array of data we get back is 1/2 the size of the sample rate 
+			*/
+			
+			// create a new array of 8-bit integers (0-255)
+			var data = new Uint8Array(NUM_SAMPLES/2); 
+            
+            var colorData = new Uint8Array(NUM_SAMPLES/4);
+           // var waveData = new Uint8Array(NUM_SAMPLES);
+			
+			// populate the array with the frequency data
+			// notice these arrays can be passed "by reference" 
+			analyserNode.getByteFrequencyData(data);
+            
+            analyserNode.getByteFrequencyData(colorData);
+            
+            distortionN.oversample= '4x';
+            distortionN.curve = distortionCurve(distortionValue);
+		
+			// OR
+			//analyserNode.getByteTimeDomainData(waveData); // waveform data
+			
+			// DRAW!
+			ctx.clearRect(0,0,800,600);  
+            
+            //drawing the daytime sky
+            var grad = ctx.createLinearGradient(canvas.width/2,0,canvas.width/2,350);
+            
+            if(nightTime==false)
+                {
+                    //setting the day set
+                    grad.addColorStop(0/2,sky1);
+                    grad.addColorStop(1/2,sky2);
+                    grad.addColorStop(2/2,sky3);   
+                    
+                    //reset all the arrays
+                    starX=[];
+                    starY=[];
+                    starColor=[];
+                    starR=[];
+                    starG=[];
+                    starB=[];
+                    starSize=[];
+                    starCount=0;
+                }
+            else if(nightTime)
+                {
+                    grad.addColorStop(0/2,skyN1);
+                    grad.addColorStop(1/2,skyN2);
+                    grad.addColorStop(2/2,skyN3);  
+                    
+                }
+            ctx.fillStyle=grad;
+            ctx.fillRect(0,0,canvas.width,350);
+            //if it is night time, draw the stars
+            if(nightTime)
+                {
+                    for(var i = 0; i < starCount; i++)
+                        {
+                            //loop through stars and place them based on:
+                            //the color that was selected at the time
+                            //the position the cursor was at
+                            //and a random size
+                            
+                               
+                                
+                            var percentS = data[i]/256;
+                                
+                            var starRadius = percentS*starSize[i];
+                            var red=parseInt(starR[i]);
+                            var green=parseInt(starG[i]);
+                            var blue=parseInt(starB[i]);
+                                var alphaS= .50-percentS/10.0;
+                            ctx.fillStyle='rgba('+ red+','+ green+ ',' + blue+ ','+alphaS+')';  
+                            ctx.beginPath(); 
+                            ctx.arc(starX[i],starY[i],starRadius,0,2*Math.PI,false);
+                            ctx.fill();
+                            ctx.closePath();
+                            
+                        }
+                }
+            
+  
+            
+            
+			// loop through the data and draw!
+            if(vape==false){
+			 for(var i=0; i<data.length; i++) { 
+				
+				// the higher the amplitude of the sample (bin) the taller the bar
+				// remember we have to draw our bars left-to-right and top-down
+                
+                var percent = data[i]/256;
+                var circleRadius = percent*maxRadius;
+                ctx.beginPath();
+                //change the color of the sun/moon to be based on the time of day
+                if(nightTime==false)
+                    {
+                        ctx.fillStyle=makeColor(sunR,sunG,sunB,.34-percent/10.0);   
+                    }
+                else if(nightTime)
+                    {
+                        ctx.fillStyle=makeColor(moonR,moonG,moonB,.34-percent/10.0);   
+                    }
+                ctx.arc(canvas.width/2,canvas.height/2,circleRadius,0,2*Math.PI,false);
+                ctx.fill();
+                ctx.closePath();
+                ctx.restore();
+				
+			 }
+            }
+            else if(vape)
+                {
+                    //console.log((canvas.height/2-200)+ySpeed);
+                    ctx.drawImage(image,canvas.width/2-100, yPos);
+                    yPos += ySpeed;
+                    if(yPos<= 0)
+                        {
+                            ySpeed *= -1;
+                        }
+                    else if( yPos>= canvas.height/2 ){
+                        ySpeed *= -1;
+                    }
+                    console.log(ySpeed);
+                    console.log("position : " + yPos);
+                }
+            
+                  
+            //this is for drawing the mountains (wave data) on screen
+			var barWidth = 3;
+			var barSpacing = 3;
+			var barHeight = 170;
+			var topSpacing = 50;
+         
+            //the info for drawing the quadratic curve on the screen
+            var quadWidth=80;
+            var quadSpacing=50;
+            var quadHeight=180;
+            var quadTopSpacing=0;
+            ctx.lineWidth=4;
+            //if it is currently checked off as day time:
+            //change the color of the mountains
+            if(nightTime==false)
+                {
+                    ctx.strokeStyle=mountainLine;
+                    ctx.fillStyle=mountainBase;   
+                }
+            //if it is night time, change the color based on what is set to be night
+            else if(nightTime)
+                {
+                    ctx.strokeStyle=mountainLineN;
+                    ctx.fillStyle=mountainBaseN; 
+                }
+            //if quad mountains are enabled, do quadratic curve
+            if(quad){
+                ctx.beginPath();
+
+                 for(var i = 0; i<data.length;i++)
+                 {
+                    ctx.moveTo((i * (quadWidth + quadSpacing))/2-20,500);
+                    
+                  
+                    ctx.quadraticCurveTo((i * (quadWidth + quadSpacing))/2+quadWidth/2,quadTopSpacing + 200-data[i]+0,i * (quadWidth + quadSpacing)/2+quadWidth+20,500);
+                    ctx.restore();
+                
+                
+                }
+                ctx.fill();
+                ctx.stroke();
+            }
+            //if not doing quadratic curve, draw the mountains
+            else{     
+                ctx.beginPath();
+                //drawing the mountains
+			 for(var i=0; i<data.length; i++) {
+
+                 if(i===0)
+                        {
+                            ctx.moveTo(0,500);
+                        }
+                    else{
+                            ctx.lineTo(i * (barWidth + barSpacing),topSpacing + 256-data[i]+100);
+                        }
+                  
+                    }
+                ctx.lineTo(canvas.width,600);
+                ctx.fill();
+                ctx.stroke();
+                //drawing the flipped mountain
+            	   for(var i=0; i<data.length; i++) {
+                    
+                       ctx.lineTo(800-i * (barWidth + barSpacing),topSpacing + 256-data[i]+100);
+
+                   }
+                ctx.lineTo(0,600);
+                ctx.fill();
+                ctx.stroke();
+           
+            }
+            //drawing the daytime floor
+            if(nightTime==false)
+                {
+                    ctx.fillStyle=floorDay;
+                }
+            else if(nightTime)
+                {
+                    ctx.fillStyle=floorNight;
+                }
+            
+            ctx.fillRect(0,350,800,600);
+            
+            //this is for the V A P O R W A V E   L I N E S  that will be corvering the area on the floor
+            ctx.lineWidth=3;
+            //the colors for the lines based on the day
+            if(nightTime==false)
+                {
+                    ctx.strokeStyle=baseLine;   
+                }
+            else if(nightTime)
+                {
+                    ctx.strokeStyle=baseLineN;  
+                }
+            ctx.beginPath();
+            ctx.moveTo(0,350);
+            ctx.lineTo(800,350);
+            ctx.closePath();
+            ctx.stroke();
+            
+                
+
+            //drawing the vertical lines on the ground
+            for(var i =0; i<20; i++)
+                {
+                    //the x positions for the base lines on the floor vertical
+                    var x1=i*50;
+                    var x2= i*20;
+                //ctx.strokeStyle='#6bf4e7';
+                ctx.beginPath();
+                ctx.moveTo(400+x2,350);
+                ctx.lineTo(400+x1,600);
+                ctx.closePath();
+                ctx.stroke();
+                    
+                ctx.beginPath();
+                ctx.moveTo(400-x2,350);
+                ctx.lineTo(400-x1,600);
+                ctx.closePath();
+                ctx.stroke();
+                    
+                }
+                
+            ctx.lineWidth=2;
+            //drawing the horizontal lines on the ground
+                for(var i =0; i<20; i++)
+                {
+                    var lineY=i*30;
+                  
+                //ctx.strokeStyle='#6bf4e7';
+
+                    ctx.beginPath();
+                    ctx.moveTo(0,350+lineY);
+                    ctx.lineTo(800,350+lineY);
+                    ctx.closePath();
+                    ctx.stroke();
+                    
+
+                }
+        
+            manipulatePixels();
+      
+		} 
+ 
+        
+        
+        
+
+        //this is for the stars
+        //gets the colors and splits it up into array for the stars
+        //code portion influenced from http://stackoverflow.com/questions/12355212/how-can-i-get-the-red-green-and-blue-values-from-an-rgb-rgba-string
+        function getColorsStars(colorString)
+        {
+            var colorsAlone=colorString.substring(colorString.indexOf('(')+1, colorString.lastIndexOf(')')).split(/,\s*/);
+            starR.push(parseInt(colorsAlone[0]));
+             starG.push(parseInt(colorsAlone[1]));
+             starB.push(parseInt(colorsAlone[2])); 
+        
+        }
+        
+        //creating the distortion curve for the distortion node\
+        //code based on Audio APi github : https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js
+        function distortionCurve(amount){
+            var k = typeof amount === 'number' ? amount : 50;
+            var samples = 44100;
+             var curve = new Float32Array(samples);
+            var deg = Math.PI / 180;
+            var i = 0;
+            var x;
+            for ( ; i < samples; ++i ) {
+                    x = i * 2 / samples - 1;
+                    curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+                }
+            return curve;
+        }
+        
+        
+        
+        
+        
+        function manipulatePixels(){
+            var imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
+
+            var data=imgData.data;
+            var length=data.length;
+            var width=imgData.width;
+
+            for(var i =0; i<length; i+=4){     
+                if(invert)
+                    {
+                        var red=data[i], green=data[i+1],blue=data[i+2];
+                        data[i]=255-red;
+                        data[i+1]=255-green;
+                        data[i+2]=255-blue;
+                    }
+                //the noise effect
+                if(noise && Math.random()<.10)
+                    {
+                        //data[i]=data[i+1]=data[i+2]=128;//grey
+                        data[i]=data[i+1]=data[i+2]=255;//white
+                        //data[i]=data[i+1]=data[i+2]=0;//black
+                        //data[i+3]=255;
+                    } 
+            }
+
+            ctx.putImageData(imgData,0,0);
+        }
+        
+        
+
+        
+        //if user clicks
+        function onClick(e){
+            if(nightTime==true && starCount < 35)
+                {
+                    //Once user clicks, save the details about the star location, color, and random size and create it.
+                    starX.push(e.clientX);
+                    starY.push(e.clientY);
+                    starColor.push(starFill);
+                    getColorsStars(starFill);
+                    starSize.push(Math.floor(Math.random()*(13-5)+5));
+                    starCount++;
+                    
+                }
+        }
+        
+        
+		// HELPER
+		function makeColor(red, green, blue, alpha){
+   			var color='rgba('+red+','+green+','+blue+', '+alpha+')';
+   			return color;
+		}
+		
+		 // FULL SCREEN MODE
+		function requestFullscreen(element) {
+			if (element.requestFullscreen) {
+			  element.requestFullscreen();
+			} else if (element.mozRequestFullscreen) {
+			  element.mozRequestFullscreen();
+			} else if (element.mozRequestFullScreen) { // camel-cased 'S' was changed to 's' in spec
+			  element.mozRequestFullScreen();
+			} else if (element.webkitRequestFullscreen) {
+			  element.webkitRequestFullscreen();
+			}
+			// .. and do nothing if the method is not supported
+		};
+		
+		
+		window.addEventListener("load",init);
+	}());
+		
+	</script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-8">
+	       <canvas id="canvas" width="800" height="600"></canvas>
+        </div>
+	<div id="controls" class="col-md-6 col-sm-6">
+
+		<audio controls loop></audio>
+        <section class="boxes">
+            <h2>Select your song</h2>
+		<label>Track: 
+			<select id="trackSelect" >
+				<option value="media/Gorillaz - Doncamatic.mp3">Doncamatic - Gorillaz</option>
+				<option value="media/Hotline Miami-Crystals.mp3">Crystals - M|O|O|N</option>
+				<option value="media/MACINTOSH PLUS.mp3">MACINTOSH PLUS [ A E S T H E T I C]</option>
+                <option value="media/JoJos Bizarre Adventure- Great Days.mp3">Great Days</option>
+                <option value="media/Caravan Palace-Lone Digger.mp3" selected>Lone Digger - Caravan Palace</option>
+                <option value="media/Electro-Delight.mp3">Delight</option>
+                <option value="media/C2C - Delta.mp3">Delta - C2C</option>
+                <option value="media/SAINT PEPSI - ENJOY YOURSELF.mp3">Enjoy Yourself - Saint Pepsi</option>
+                <option value="media/Fist of the North Star OST [HQ] - Heart of Madness.mp3">Heart of Madness - FotNS OST</option>
+                <option value="media/WAKE ME UP INSIDE.mp3">???</option>
+			</select>
+		</label>
+            <div class="boxes">
+                <p id="status">???</p>
+            </div>
+        </section>
+            <div class="boxes">
+                <h2>Customize your sky</h2>
+                <div>
+                    <h3>Interactivity</h3>
+                    <p>When it is nigh time, click on the canvas to create stars. The star's color depends on what is currently selected under the select bar. If you sh to reset the stars, toggle off then on night time. You can on have 35 stars per time.</p>
+                </div>
+                <div class="boxPieces" >
+                    <label for="slider1">Sun/Moon Radius</label>
+                    <input id="slider1" type ="range" min ="20" max="250" step ="5" value ="180"/>
+                </div>
+                <span class="boxPieces" >
+			     <label for="nightTime">Night Time</label>
+			     <input type="checkbox" id="nightTime">
+		        </span>
+                <div class="boxPieces">
+                    <label>Color Of Star:
+			         <select id="colorStar" >
+				        <option value="(223,228,250)" selected>Starlight White</option>
+				        <option value="(84,205,229)">Future Funk Blue</option>
+				        <option value="(235,71,254)">明るいピンク</option>
+                         <option value="(111,36,182)">Melancholy Purple</option>
+                        <option value="(129,197,130)">A E S T H E T I C  Green</option>
+                         <option value="(237,0,80)"> Communism Red</option>
+			         </select>
+                    </label>
+                </div>
+                    <span class="boxPieces">
+					   <label for="vapeBox">V A P O R W A V E</label>
+					<input type="checkbox" id="vapeBox">
+				    </span>
+                <div class="boxPieces" >
+                    <label for="slider4">Roman Speed</label>
+                    <input id="slider4" type ="range" min =".5" max="50" step ="0.5" value =".5"/>
+                </div>
+            </div>
+			<div class="boxes">
+                <h2>Change things up</h2>
+				<span class="boxPieces">
+					<label for="invertColor">Invert Color</label>
+					<input type="checkbox" id="invertColor">
+				</span>
+				<span class="boxPieces">
+					<label for="noiseBox">Noise</label>
+					<input type="checkbox" id="noiseBox">
+				</span>
+				<span class="boxPieces">
+					<label for="quadBox">Quadratic Moutains</label>
+					<input type="checkbox" id="quadBox">
+				</span>
+			</div>
+        
+		
+			<div class="boxes">
+                <h2> (WARNING HEADPHONE USERS! FIDDLE WITH AT YOUR OWN RISK!)</h2>
+				<label for="slider2">Gain</label>
+                <input id="slider2" type ="range" min ="1" max="1000" step ="5" value ="1"/>
+				<label for="slider3">Distortion</label>
+                <input id="slider3" type ="range" min ="1" max="1000" step ="5" value ="1"/>
+			</div>
+    
+            <div class="boxes">
+                <button id="fsButton">Go Full Screen</button><br>
+            </div>
+	   </div>
+    </div>
+</body>
+</html>

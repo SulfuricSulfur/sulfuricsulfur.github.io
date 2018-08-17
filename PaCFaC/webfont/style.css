@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'candelabook';
+    src: url('CandelaBook-webfont.eot');
+    src: url('CandelaBook-webfont.eot?#iefix') format('embedded-opentype'),
+         url('CandelaBook-webfont.woff') format('woff'),
+         url('CandelaBook-webfont.ttf') format('truetype'),
+         url('CandelaBook-webfont.svg#candelabook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'varela_roundregular';
+    src: url('VarelaRound-Regular-webfont.eot');
+    src: url('VarelaRound-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('VarelaRound-Regular-webfont.woff') format('woff'),
+         url('VarelaRound-Regular-webfont.ttf') format('truetype'),
+         url('VarelaRound-Regular-webfont.svg#varela_roundregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'communistsans';
+    src: url('COMMS___-webfont.eot');
+    src: url('COMMS___-webfont.eot?#iefix') format('embedded-opentype'),
+         url('COMMS___-webfont.woff') format('woff'),
+         url('COMMS___-webfont.ttf') format('truetype'),
+         url('COMMS___-webfont.svg#communistsans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+p, li{
+    font-family: 'varela_roundregular','communistsans';
+}
+
+h1, h2, h3, h4, h5{
+    font-family: 'candelabook', serif;
+    color:black;
+}
+
+#catHeader{
+    text-align: center;
+}
+
+#h1Intro{
+    font-size: 350%;
+    text-shadow: 2px 2px 4px #6A2C6A;
+    color:black;
+}
+
+#intro{
+    
+    text-align: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 40px;
+    padding:15px;
+     background-color:#f6d2dc;
+}
+
+.catSearch{
+    
+    background-color: #fbd7f1;
+    margin-top: 15px;
+    padding: 20px;
+   margin-left: 30px;
+    margin-right: 10px;
+    overflow: auto;
+    
+}
+
+label{
+    margin-right:10px;
+    margin-bottom: 10px;
+}
+
+#dynamicContent{
+    background-color: #cbe5f1;
+    height:800px;
+    margin-top: 15px;
+    margin-left: 30px;
+    margin-right: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+#mapDiv{
+    background-color: #b3f9fd;
+    height:700px;
+    margin-top: 15px;
+     margin-left: 30px;
+
+    overflow: auto;
+}
+
+
+#catfactDiv{
+    margin-top: 15px;
+    background-color: #c1e3ec;
+    height:400px;
+     margin-left: 30px;
+    margin-right: 10px; 
+    color:black;
+    display: none;
+    padding:15px;
+    
+}
+
+.catfactlist{
+    text-align: center;
+}
+
+body{
+   background-image: url("../paws.png");
+    background-repeat: repeat;
+}
+
+.row{
+    width:100%;
+}
+
+
+.catSpace{
+    margin-top: 15px;
+    background-color: #e6dce7;
+    margin-bottom: 15px;
+    padding: 15px;
+    
+}
+
+
+
+/* For some reason this class from bootstrap causes the page to extend via width. Disabling it */
+.__brackets-ld-highlight{
+    width: 0;
+}

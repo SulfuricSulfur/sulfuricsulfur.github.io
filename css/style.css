@@ -1,0 +1,368 @@
+/*External font */
+@font-face {
+    font-family: 'ditedregular';
+    src: url('Dited-webfont.eot');
+    src: url('Dited-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Dited-webfont.woff') format('woff'),
+         url('Dited-webfont.ttf') format('truetype'),
+         url('Dited-webfont.svg#ditedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'digital_dreamregular';
+    src: url('DIGITALDREAM-webfont.eot');
+    src: url('DIGITALDREAM-webfont.eot?#iefix') format('embedded-opentype'),
+         url('DIGITALDREAM-webfont.woff') format('woff'),
+         url('DIGITALDREAM-webfont.ttf') format('truetype'),
+         url('DIGITALDREAM-webfont.svg#digital_dreamregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'share-techregular';
+    src: url('Share-Tech-webfont.eot');
+    src: url('Share-Tech-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Share-Tech-webfont.woff') format('woff'),
+         url('Share-Tech-webfont.ttf') format('truetype'),
+         url('Share-Tech-webfont.svg#share-techregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'share-techmonoregular';
+    src: url('Share-TechMono-webfont.eot');
+    src: url('Share-TechMono-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Share-TechMono-webfont.woff') format('woff'),
+         url('Share-TechMono-webfont.ttf') format('truetype'),
+         url('Share-TechMono-webfont.svg#share-techmonoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'share-regularregular';
+    src: url('Share-Regular-webfont.eot');
+    src: url('Share-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Share-Regular-webfont.woff') format('woff'),
+         url('Share-Regular-webfont.ttf') format('truetype'),
+         url('Share-Regular-webfont.svg#share-regularregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'profontwindowsregular';
+    src: url('ProFontWindows-webfont.eot');
+    src: url('ProFontWindows-webfont.eot?#iefix') format('embedded-opentype'),
+         url('ProFontWindows-webfont.woff') format('woff'),
+         url('ProFontWindows-webfont.ttf') format('truetype'),
+         url('ProFontWindows-webfont.svg#profontwindowsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'verily_serif_monobook';
+    src: url('VerilySerifMono-webfont.eot');
+    src: url('VerilySerifMono-webfont.eot?#iefix') format('embedded-opentype'),
+         url('VerilySerifMono-webfont.woff') format('woff'),
+         url('VerilySerifMono-webfont.ttf') format('truetype'),
+         url('VerilySerifMono-webfont.svg#verily_serif_monobook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*End of external font */
+
+ #svgRoot{
+	 width:800px; 
+	 height:600px;
+	 background-color:#293136;
+ }
+.p3Div{
+	margin:5%;
+	background-color:#111518;
+}
+
+.ball{
+	fill:#1197C7;
+}
+
+.paddle{
+	fill:#94C7D7;
+	
+}
+.brick{
+	fill:#B0B1B1;
+}
+
+.h2Game{
+	padding-left:10px;
+	color:#39BBDE;
+	font-family:ditedregular, Courier;
+	font-size: 170%;
+}
+
+#leader{
+	color:#EEAD3D;
+}
+
+
+
+
+.featurette-divider{
+	padding-top:3%;
+}
+
+footer{
+	margin-top:5%;
+}
+.col-lg-6 img{
+	display:block;
+	margin-left:auto;
+	margin-right:auto;	
+}
+
+.carousel-inner img{
+		display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.email-inline{
+	display:inline;
+}
+
+.container{
+	margin-bottom:10px;
+}
+
+.col-lg-6, .col-md-8{
+	margin-top:10px;
+	margin-bottom:30px;
+}
+.control {
+	list-style:none;
+	
+}
+h1{
+	
+	font-family:ditedregular,digital_dreamregular;
+	color:#d63d35;
+	font-size:280%;
+}
+
+p,li{
+	font-family:verily_serif_monobook,share-techmonoregular,share-regularregular,share-techregular;
+	font-size:101%;
+}
+
+h2,h3, h4,h5{
+	font-family:share-techmonoregular,share-techmonoregular;
+	color:#73F0D2;
+}
+h3{
+	font-size:180%;
+}
+
+p{
+	line-height:175%;
+	color:#CDF3E6;
+}
+
+li{
+	line-height:200%;
+	color:#CEB7BD;
+}
+
+body{
+	background-color:#000200;
+}
+
+.bodyText{
+	font-size:108%;
+}
+
+
+/*Picture of me class */
+.picMe{
+	max-width:100%;	
+}
+
+
+.jumbotron{
+	background-color:#974187;
+	color:#feb243;	
+}
+
+.container{
+	background-color:#211c54;
+}
+
+.contactBox{
+	margin-top:20px;
+	margin-bottom:10px;
+}
+
+
+/*For moving footerbox */
+.footerbox{
+	margin-top:35px;
+}
+
+.shadowBox{
+	box-shadow:0px 10px 215px 45px #56054a;	
+}
+
+.introTitle, lead{
+	color:#d63d35;
+}
+
+a{
+	color:#fb58fb;
+}
+a:hover{
+	color:#ddb3fa;
+}
+
+#view{
+	padding-bottom:300px;
+	max-width:100%;
+	width:100%;
+	height:100%;
+	background-image:url("image.jpg");
+	background-size:cover;
+	background-position:center;
+}
+
+#introView{
+	 background: rgba(0, 0, 0, 0) ;
+}
+#backgroundContainer{
+	background-color: rgba(33, 28, 84, .7) ;
+}
+
+#indexIntro{
+	font-size:450%;
+}
+
+
+.navbar-default {
+  background-color: #582769;
+  border-color: #f5ae43;
+}
+.navbar-default .navbar-brand {
+  color: #fcdef2;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #fc034f;
+}
+.navbar-default .navbar-text {
+  color: #fcdef2;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #fcdef2;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #fc034f;
+  background-color:#fee33b;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu {
+  background-color: #B24DA0;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+  color: #fcdef2;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #fc034f;
+  background-color: #fee33b;
+}
+.navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #f5ae43;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #fc034f;
+  background-color: #f5ae43;
+}
+
+.activeParent{
+  color: #fc034f !important;
+  background-color: #f5ae43;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+
+  background-color: #f5ae43; 
+  color: #fc034f;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #fc034f;
+  background-color: #fee33b;
+}
+.navbar-default .navbar-toggle {
+  border-color: #f5ae43;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #f5ae43;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fcdef2;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #fcdef2;
+}
+.navbar-default .navbar-link {
+  color: #fcdef2;
+}
+.navbar-default .navbar-link:hover {
+  color: #fc034f;
+}
+
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #fcdef2;
+  }
+		.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+		.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #fc034f;
+		background-color: #fee33b;
+	}
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+		.navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #fc034f;
+		background-color: #f5ae43;
+	}
+	.navbar-default .navbar-nav > li > .dropdown-menu {
+	background-color: #B24DA0;
+	}
+
+	/* for adjusting the boxes in the contact section */
+	.contactAdjust{
+		margin-top:25px;
+	}
+
+}
+
+@media (max-width:480px){
+	.bodyText{
+		
+		font-size:100%;
+	}
+	
+}

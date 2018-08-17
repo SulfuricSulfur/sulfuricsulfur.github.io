@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<title>Documentation</title>
+</head>
+<body>
+	<h1>Documentation</h1>
+	<section>
+		<h2>How the projectwas created; what technologies did you use? 
+		What did you write yourself and what did you get from somewhere else?</h2>
+		<p>
+		The project was created using one HTML file (the main index page), a javascript file 
+		(the file that holds the game logic) and a css document (a document which holds the presentation 
+		to change the look). The HTML page only contains the svg main, the body, and linking the javascript 
+		document and the css together to be displayed. The top of the javascript page holds basic info
+		to make accessing info easier and quicker. It holds info about the brick (size, offset from the 
+		other bricks, the array of bricks, and the amount of bricks broken and total). 
+		There is also the score, the amount the score will increase by each time a brick is hit, 
+		and the number of lives. There is also the speed of the ball and the direction in which the ball 
+		is going.  The top also contains the audio variables. The javascript has a number of functions 
+		in it. There is:
+		</p>
+		<ul>
+			<li>CreateBall
+				<ul>
+					<li>This function creates and sets a ball every time it is called.</li>
+				</ul></li>
+			<li>RespawnBall
+				<ul>
+					<li>This checks to make sure that the ball the ball can move (if the ball was just spawned into the level or if the player just lost)</li>
+					<li>If the ball can’t move, put the ball in the middle of the paddle and set the direction to 0 until the ball is shot again.</li>
+				</ul></li>
+			<li>CreatePaddle
+				<ul>
+					<li>Creates the paddle.</li>
+				</ul></li>		
+			<li>ShootBall
+				<ul>
+					<li>This checks to see if the ball can be shot. If it can, then set the moving direction to be negated (go to top of the screen) once the ball is shot.</li>
+				</ul></li>	
+			<li>CreateBrick
+				<ul>
+					<li>Creates the bricks. Passes in x and y position. </li>
+					<li>There is a function inside it to check to see if the ball has cullided with the brick. If it has, then remove the brick, add to the score, and add one to the amount of bricks that have been broken. Will also play audio if brick is hit.</li>
+				</ul></li>	
+			<li>DisplayHighScore
+				<ul>
+					<li>This gets localStorage and adds an item for the high score and the high score’s name.</li>
+					<li>Displays the high score and the name.</li>
+				</ul></li>	
+			<li>SetUpBricks
+				<ul>
+					<li>This makes a random number to be the number of bricks in a row and the number of bricks in a column. There will then be a for loop which loops through the rows and columns. The x and y for the bricks that will have an offset to the left and also the top.</li>
+				</ul></li>				
+			<li>ReserveSpd
+				<ul>
+					<li>Checks to see if the ball collides with the walls. If it does, bounce opposite way and play audio.</li>
+				</ul>	
+				</li>
+			<li>BallDie
+				<ul>
+					<li>Checks to see if the ball goes off the bottom of the screen. If it does, lose a life and restart the ball’s position and play audio.</li>
+				</ul></li>	
+			<li>updateText
+				<ul>
+					<li>Updates the text on the screen to display the score and the amount of lives.</li>
+				</ul></li>		
+			<li>Move
+				<ul>
+					<li>Checks to see if the ball can move.</li>
+					<li>If it can: multiple the speed by the direction for the x and y and then add it to the position for each.</li>
+				</ul></li>		
+			<li>BallPaddle
+				<ul>
+					<li>Checks to see if the ball’s bounding box has collided with the paddle’s bounding box. If it has, reverse the y’s direction. Also, check to see where the ball’s x position in relation to the paddle. Depending on where it is, it will affect the distance and where it goes.</li>
+				</ul></li>		
+			<li>movePaddle
+				<ul>
+					<li>Moves the paddle based on the mouse’s x position. The mouse should be within the bounds on the screen. If not, don’t move the paddle.</li>
+					<li>Gets half the width of the paddle and the current x position of the paddle.  Subtracts half the width of the paddle from the mouse’s x to make the mouse in the middle.</li>
+				</ul></li>		
+			<li>Init
+				<ul>
+					<li>Loads all of the functions that create the brick, paddle, and ball.</li>
+					<li>Sets the number of bricks broken to 0.</li>
+				</ul></li>		
+			<li>Win
+				<ul>
+					<li>Checks to see if the amount of bricks broken is equal to the amount of bricks total.</li>
+					<li>If it is, play audio.</li>
+					<li>Tell player they have won.</li>
+					<li>Make sure the ball can’t move.</li>
+					<li>Set the ball to the middle of the paddle.</li>
+					<li>Reset the number of bricks.</li>
+					<li>Increase The score by a levelIncrease variable.</li>
+					<li>Increase the speed for the next level by 2.</li>
+					<li>Recreate new bricks for the next level.</li>
+				</ul></li>		
+			<li>Lose
+				<ul>
+					<li>Check to see if the lives have run out.</li>
+					<li>f it has: play lose audio.</li>
+					<li>Tell player they have lost and inform them of their score.</li>
+					<li>Instructs player to enter their name.</li>
+					<li>If the score is higher than the current highscore, than replace the leader board score and name with the recent one and upload it to the localStorage. </li>
+					<li>If there is no prior leader, then this will be the leader score.</li>
+					<li>Reset the game.</li>	
+				</ul></li>		
+			<li>GameLoop
+				<ul>
+					<li>Run everything that requires to be constantly checked while the game is running.</li>
+					<li>The checking includes collision, if player has lost, if player has won, ball moving, updating score and lives, the paddle’s position, if the ball has collided with the bricks, and if the ball has died.</li>					
+				</ul></li>		
+			<li>Make sure the init loads when window is opened.</li>
+			<li>Set the interval of the GameLoop to 16 so it can constantly run.</li>			
+		</ul>
+		
+		<p>
+		Starting off, I originally used a tutorial to help me. Two of the tutorials were:
+		<a href="https://dzone.com/articles/how-write-brikbloc-game-html5">https://dzone.com/articles/how-write-brikbloc-game-html5</a> and<a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript"> https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript</a> I used these tutorials to help me with a starting point and get on my feet once I had an idea of where to start. In the BallPaddle, I also used influence from the tutorial in order to make the movement of the balls more natural and adaptable to the movement of the paddle.
+		</p>
+		
+		<p>
+		Font for game is from:
+		<a href="https://www.google.com/url?hl=en&q=https://www.fontsquirrel.com/fonts/Dited?q%255Bterm%255D%3Ddited%26q%255Bsearch_check%255D%3DY&source=gmail&ust=1481683105570000&usg=AFQjCNFKj0CMFwrnxXB9Cuiyt4IKU69KBg">https://www.google.com/url?hl=en&q=https://www.fontsquirrel.com/fonts/Dited?q%255Bterm%255D%3Ddited%26q%255Bsearch_check%255D%3DY&source=gmail&ust=1481683105570000&usg=AFQjCNFKj0CMFwrnxXB9Cuiyt4IKU69KBg</a>	
+		</p>
+		<p>
+			The audio for the game are from:
+			</p>
+			<ul>
+				<li><a href="https://www.freesound.org/people/Kastenfrosch/sounds/162482/">https://www.freesound.org/people/Kastenfrosch/sounds/162482/</a></li>
+				<li><a href="http://soundbible.com/1626-Ball-Bounce.html">http://soundbible.com/1626-Ball-Bounce.html</a></li>
+				<li><a href="https://www.freesound.org/people/suntemple/sounds/253174/">https://www.freesound.org/people/suntemple/sounds/253174/</a></li>		
+			</ul>	
+		
+	</section>
+	
+	<section>
+		<h2>What new skills you had to learn to realize the project?</h2>
+		<p>
+		I have learned more about how to use javascript and svg in general. For a while, I had trouble with javascript and svg.
+		It took me a while to get use to coding the elements, so it took a couple of weeks to get more comfortable with coding 
+		in the style.  This includes spawning them in and their interactions with each other via collision. 
+		One particular collision method I learned about was using .getBoundingClientRect()
+		in order to get a bound area rectangle around the element to check for collision. 
+		I was also able to implement multiple audio to the game that play depending on the situation 
+		(lose, win, or collision). I also learned more about the ball bouncing based on different 
+		collision from the tutorials on the brick breaker game via javascript and svg. 
+		I also have a localStorage Implemented in the assignment for high score. Onto of that, 
+		I also learned about taking input from a window box in order to collect the user’s name to 
+		display it along with the high score. 
+		
+		</p>
+	
+	</section>
+	<section>
+		<h2>Areas you see for future improvement</h2>
+		<p>
+			For the future, I would like to add power ups.
+			I would like to randomly spawn in different power ups that stay on the screen for a little 
+			while and then disappear. When the ball collides with them, they activate a different power
+			up. Also, I would like to maybe make the game multiplayer. It would be sort of like pong 
+			where the players are trying to score the ball on the other player’s side while also trying 
+			to break the brick to get points. I would like to do all of this if I had more time.
+		</p>
+	</section>
+		<section>
+		<h2>Areas you see for future improvement</h2>
+		<p>
+			The amount of bricks per level is random. As the level increase so does the speed of the ball. 
+			In addition, there is a levelIncrease which is an addition to the score. Each time the player beats 
+			a level, the levelIncrease will increase and then be added to the score.
+		</p>
+	
+	</section>
+</body>
+
+</html>

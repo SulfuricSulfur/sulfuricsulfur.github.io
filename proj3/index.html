@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="../bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../css/style.css" type="text/css" />
+	<title>Project 3 BrickBreaker!</title>
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../about.html">About Me</a></li>
+            <li><a href="../experience.html">Experience</a></li>
+			<li><a href="../cohn_resume.pdf" target="_blank">Resume</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle activeParent" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../class.html">Class Projects</a></li>
+            <li><a href="../globalgamejam.html">Global Game Jam</a></li>
+            <li><a href="../hackathon.html">Hack-a-Thon</a></li>
+			<li><a href="../productionstudio.html">Production Studio</a></li>
+            <li><a href="PaCFaC/index.html" target="_blank">Paws and Claws for a Cause</a></li>
+              <li><a href="webAV2/webAV2.html" target="_blank">Web Audio Visualizer</a></li>
+			<li class="active"><a href="#">Web Project 3</a></li>
+              
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../contact.html">Contact Me</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+	<section class="jumbotron text-xs-center">
+		<div class="container">
+			<h1 class="jumbotron-heading text-center">Project 3: BrickBreaker</h1>
+			<p class="lead text-muted text-center introTitle">
+				An HTML, CSS, and Javascript web game project for my Web Design and Implementation class.
+			</p>
+		</div>
+	</section>
+	<div class="p3Div">
+		<h2 id="leader">HighScore</h2>
+		<h2 id="score">SCORE</h2>
+		<h2 id="lives">LIVES</h2>
+		<svg id="svgRoot">
+		</svg>
+		<h2>Rules</h2>
+		<ul>
+			<li>Goal: Clear all the bricks off the screen using the ball to hit the bricks and the paddle to guide the ball.</li>
+			<li>Avoid: Having the ball go past the paddle. If this happens, you lose a life.
+				<ul>
+					<li>Once you lose all your lives the game is over</li>
+				</ul>
+			</li>
+			<li>Every time you finish a level you will get a bonus and move onto next level.</li>
+			<li>Try to finish game with highscore.</li>
+			<li>Have fun!</li>
+		</ul>
+		
+	</div>
+	<script type="text/javascript" src="brickbreaker.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

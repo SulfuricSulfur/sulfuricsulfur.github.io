@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/style.css" type="text/css" rel="stylesheet">
+<title>Class Projects</title>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Info <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="experience.html">Experience</a></li>
+			<li><a href="cohn_resume.pdf" target="_blank">Resume</a></li>
+          </ul>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle activeParent" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="active"><a href="#">Class Projects</a></li>
+            <li><a href="globalgamejam.html">Global Game Jam</a></li>
+            <li><a href="hackathon.html">Hack-a-Thon</a></li>
+			<li><a href="productionstudio.html">Production Studio</a></li>
+			 <li><a href="PaCFaC/index.html" target="_blank">Paws and Claws for a Cause</a></li>
+              <li><a href="webAV2/webAV2.html" target="_blank">Web Audio Visualizer</a></li>
+			<li><a href="proj3/index.html">Web Project 3</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+		
+	<div class="container shadowBox">
+	<!--This is for the comment above carousel-->
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<h2 class="text-center">
+					Fish and Birds: Autonomous Agents Final
+				</h2>
+				<p class="bodyText">
+					This project was made as a final project in my Interactive Media Development class. The goal of the final was to make an environment
+					with multiple agents in it that interact with the environment and each other. For this, the group of birds flock together while also pursuing the fish.
+					The fish follow a leader fish who is seeking out different waypoints.
+				</p>
+				
+				<div class="col-xs-12">
+					<h4>
+						*CONTROLS FOR PROJECT:		
+					</h4>
+					<p class="bodyText">
+						C - change camera
+						<br />
+						W - Move control fish forwards
+						<br />
+						S - Move control fish backwards
+						<br />
+						A - Turn control fish left
+						<br />
+						D - Turn control fish right
+						<br />
+						END - Secret	
+					</p>
+				</div>
+			</div>
+		<!--Carousel-->
+			<div class="col-lg-8 col-md-8  col-xs-12">
+				<div id="carousel1" class="carousel slide" data-ride="carousel1">
+					<ol class="carousel-indicators">
+						<li data-target="#carousel1" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel1" data-slide-to="1"></li>
+						<li data-target="#carousel1" data-slide-to="2"></li>
+					</ol>
+  <!--Items of the carousel(slides)-->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="media/class/fish2.png" alt="Image above the water directed at the birds">
+						</div>
+						<div class="item">
+							<img src="media/class/fish1.png"  alt="Birds chasing fish">
+						</div>
+						<div class="item">
+							<img src="media/class/fish3.png"  alt="Controller fish">
+						</div>
+					</div>
+  <!-- Left and right controls -->
+					<a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<p class="text-center bodyText">
+							<a href="https://dl.dropboxusercontent.com/s/s488ur73jrtg6u7/Web.html">Link to download webpage of project</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr class="featurette-divider">
+		
+	<!--This is for the comment above carousel-->
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<h2 class="text-center">
+					Paul and the Yum-Yum Crew: The Eternal Search
+				</h2>
+				<p class="bodyText">
+					This is a game I worked on with a group of 5 including myself. 
+					All art except the main menu were made by the team's artist. The game was made in Monogame. 
+					The game is a 2D puzzle-platforming game where the player can switch between a ghost state to 
+					phase through objects and a physical state for platforming. I worked primarily on
+					physics, enemies, debugging, and managing team deadlines.
+				</p>
+			</div>
+		<!--Carousel-->
+			<div class="col-lg-8 col-md-8  col-xs-12">
+				<div id="carousel2" class="carousel slide" data-ride="carousel2">
+					<ol class="carousel-indicators">
+						<li data-target="#carousel2" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel2" data-slide-to="1"></li>
+						<li data-target="#carousel2" data-slide-to="2"></li>
+					</ol>
+  <!--Items of the carousel(slides)-->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="media/class/pyyc2.png" alt="Game Title">
+						</div>
+						<div class="item">
+							<img src="media/class/pyyc1.png"  alt="Sprite Sheet">
+						</div>
+						<div class="item">
+							<img src="media/class/pyyc3.png"  alt="Game background">
+						</div>
+					</div>
+  <!-- Left and right controls -->
+					<a class="left carousel-control" href="#carousel2" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel2" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<hr class="featurette-divider">
+	<!--This is for the comment above carousel-->
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<h2 class="text-center">
+					Countdown to Midnight
+				</h2>
+				<p class="bodyText">
+					Countdown to Midnight is a cold war themed card game in which the players try to prevent the shadow government from causing
+					a nuclear war. Players try to prevent the apocalypse by tactically removing unrest in their country and around the world.
+					They are also trying to expose the shadow government, gaining information from hotspots of unrest at the cost of increasing the tensions in those areas. 
+					Players also use politics and policies to reduce unrest as well as help out their teammates. The team size was 5. 
+				</p>
+			</div>	
+		<!--Carousel-->
+			<div class="col-lg-8 col-md-8 col-xs-12">
+				<div id="carousel3" class="carousel slide" data-ride="carousel3">
+					<ol class="carousel-indicators">
+						<li data-target="#carousel3" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel3" data-slide-to="1"></li>
+						<li data-target="#carousel3" data-slide-to="2"></li>
+						<li data-target="#carousel3" data-slide-to="3"></li>
+						<li data-target="#carousel3" data-slide-to="4"></li>
+					</ol>
+  <!--Items of the carousel(slides)-->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="media/class/ctmfix.jpg" alt="Game Title">
+						</div>
+						<div class="item">
+							<img src="media/class/ctm1.jpg"  alt="Game assets">
+						</div>
+						<div class="item">
+							<img src="media/class/ctm2.jpg"  alt="Dooms Day clock">
+						</div>
+						<div class="item">
+							<img src="media/class/ctm3.jpg"  alt="Game Board and assets">
+						</div>
+						<div class="item">
+							<img src="media/class/ctm4.jpg"  alt="Game Cards">
+						</div>
+					</div>
+  <!-- Left and right controls -->
+					<a class="left carousel-control" href="#carousel3" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel3" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	
+
+	
+	<div class="container shadowBox footerbox">
+		<footer>
+			<p>&copy; Rochelle Cohn 2017</p>
+		</footer>
+	
+	</div>
+
+
+<!-- Javascript and jquery for bootstrap java -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

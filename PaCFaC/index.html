@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Paws and Claws for a Cause</title>
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="webfont/style.css" />
+
+
+    <!-- Import jQuery -->
+
+</head>
+
+<body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="catFinder.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   
+    <script src="jquery.babypaunch.spinner.min.js"></script>
+    <div id="intro">
+        <h1 id="h1Intro">Paws and Claws for a Cause</h1>
+    </div>
+    <div class="row">
+        <div class=" col-md-4 col-sm-5 col-xs-12 ">
+            <div class="catSearch">
+                <p><label for="searchLocation">Location</label><input id="searchLocation" type="text" size="20" maxlength="30" autofocus value="Rochester, NY" /></p>
+
+                <p><label for="genderSelect">Gender</label><select id="genderSelect">
+                    <option value="F" >Female</option>
+                    <option value="M">Male</option>
+                        </select></p>
+
+                <p><label for="ageSelect">Age</label><select id="ageSelect">
+                    <option value="baby">Baby</option>
+                    <option value="young">Young</option>
+                    <option value="adult" >Adult</option>
+                    <option value="senior">Senior</option>
+                    </select>
+                </p>
+
+                <p><label for="countSelect">Amount shown</label><select id="countSelect">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                        </select></p>
+
+                <button type="button" id="gosearch">Search!</button>
+                <div id="spin"></div>
+            </div>
+
+
+            <div id="dynamicContent">
+                <p>Search for a cat to start!</p>
+
+            </div>
+
+        </div>
+
+        <div class='col-md-8 col-sm-7 col-xs-12 '>
+            <div id="mapDiv">Map</div>
+        </div>
+
+
+
+
+        <div class='col-md-8 col-sm-7 col-xs-12'>
+            <div id="catfactDiv">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnCjSYSFh67H-aqz6XPOUaj6RUSfURBvg&callback=mapInit"></script>
+
+    <script>
+        //title="City and state (Example: Rochester, NY) or zip/postal code (Example: 12345) "
+        // $( function() { $( document ).tooltip();} );
+    </script>
+
+</body>

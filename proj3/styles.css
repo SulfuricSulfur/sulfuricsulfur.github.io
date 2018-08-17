@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'ditedregular';
+    src: url('Dited-webfont.eot');
+    src: url('Dited-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Dited-webfont.woff') format('woff'),
+         url('Dited-webfont.ttf') format('truetype'),
+         url('Dited-webfont.svg#ditedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+ #svgRoot{
+	 width:1280px; 
+	 height:720px;
+	 background-color:#293136;
+ }
+
+.bodyB{
+	background-color:#111518;
+	margin:0; 
+	padding:0; 
+}
+
+.ball{
+	fill:#1197C7;
+}
+
+.paddle{
+	fill:#94C7D7;
+	
+}
+
+.brick{
+	fill:#B0B1B1;
+}
+
+.h2Game{
+	padding-left:10px;
+	color:#39BBDE;
+	font-family:ditedregular, Courier;
+	font-size: 170%;
+}
+
+#leader{
+	color:#EEAD3D;
+}
